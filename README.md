@@ -1,8 +1,8 @@
-# Giraph-1.2.0-Installation on Google VM
+# Giraph 1.2.0 Installation on Google VM
 ## Overview
-With the latest changes in [Giraph](http://giraph.apache.org/), the installation guide on Giraph's official website has become outdated. For new users who are keen to explore Giraph, simply following the official guide may result in much frustration due to issues with mismatched dependencies. Furthermore, users who are not running on an *Ubuntu* system may find it difficult to get started.
+With the latest changes, the installation guide on [Giraph's official website](http://giraph.apache.org/) has become outdated. For new users who are keen to explore Giraph, simply following the website's guide may result in much frustration due to issues with mismatched dependencies. Furthermore, users who are not running on an *Ubuntu* system may find it difficult to get started.
 
-Consequently, I have adapted from the [official guide](http://giraph.apache.org/quick_start.html) to create this updated guide. In what follows, we shall create a VM instance on *Google Cloud Platform* that will run on an *Ubuntu* operating system. The purpose of this is to allow non-Ubuntu users to get started. We will then deploy Giraph on a single-node, pseudo-distributed Hadoop cluster.
+I have adapted from the [official guide](http://giraph.apache.org/quick_start.html) to create this updated guide. In what follows, we shall create a VM instance on *Google Cloud Platform* that will run on an *Ubuntu* OS. Even if *Ubuntu* is not your native OS, using a VM instance will help you get along just fine. We will then deploy Giraph on a single-node, pseudo-distributed Hadoop cluster.
 
 The deployment uses the following software/configuration:
 
@@ -18,7 +18,7 @@ The deployment uses the following software/configuration:
 
 ## Creating a VM Instance
 For detailed instructions, please refer to this [link](https://cloud.google.com/compute/docs/instances/create-start-instance). Create the instance according to these settings.
-![alt text](https://github.com/Jordan396/Giraph-1.2.0-Installation/raw/master/src/images/VM_settings.PNG "VM Settings")
+![alt text](https://github.com/Jordan396/Giraph-1.2.0-Installation/raw/master/src/images/VM_settings2.PNG "VM Settings")
 
 As this instance is rather expensive, do ensure that you have sufficient credits in your account before clicking 'Create'. Once the instance has been created, follow these [instructions](https://cloud.google.com/compute/docs/instances/connecting-to-instance) to connect to your instance.
 
@@ -72,7 +72,7 @@ Navigate to `/etc/hosts` and add the following line:
 ```
 cd /etc
 vim hosts
-# Add the following line
+# Add the following line below localhost
 123.123.12.12   hdnode01
 ```
 Even though we can use localhost for all communication within this single-node cluster, using the hostname is generally a better practice (e.g., you might add a new node and convert your single-node, pseudo-distributed cluster to multi-node, distributed cluster).
@@ -251,11 +251,11 @@ usage: org.apache.giraph.utils.ConfigurationUtils [-aw <arg>] [-c <arg>]
                                         only. Search order: CLASSPATH,
                                         HADOOP_HOME, user current dir.
 ```
+**NOTE:** When setting up the VM instance earlier, notice that we did not allow all HTTP/HTTPS traffic due to security reasons. Here, if you would like to monitor the progress of your job and other cluster info using the web UI, you will have to open ports `50070`, `50060` and `50030`.
+* NameNode daemon: http://34.345.345.345:50070
+* JobTracker daemon: http://34.345.345.345:50030
+* TaskTracker daemon: http://34.345.345.345:50060
 
-You can monitor the progress of your job and other cluster info using the web UI for the running daemons:
-* NameNode daemon: http://hdnode01:50070
-* JobTracker daemon: http://hdnode01:50030
-* TaskTracker daemon: http://hdnode01:50060
 
 Once the job is completed, you can check the output by running:
 ```
