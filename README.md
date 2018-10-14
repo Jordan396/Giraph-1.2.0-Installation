@@ -1,18 +1,18 @@
 # Giraph 1.2.0 Installation on Google VM
 ## Overview
-With the latest changes, the installation guide on [Giraph's official website](http://giraph.apache.org/) has become outdated. For new users who are keen to explore Giraph, simply following the website's guide may result in much frustration due to issues with mismatched dependencies. Furthermore, users who are not running on an *Ubuntu* system may find it difficult to get started.
+With the latest changes, the installation guide on [Giraph's official website](http://giraph.apache.org/) has become outdated. For new users who are keen to explore Giraph, simply following the website's guide may result in much frustration due to issues with mismatched dependencies. Furthermore, users who are not running on an *Ubuntu* operating system may find it difficult to get started.
 
-I have adapted from the [official guide](http://giraph.apache.org/quick_start.html) to create this updated guide. In what follows, we shall create a VM instance on *Google Cloud Platform* that will run on an *Ubuntu* OS. Even if *Ubuntu* is not your native OS, using a VM instance will help you get along just fine. We will then deploy Giraph on a single-node, pseudo-distributed Hadoop cluster.
+I have adapted from the [official guide](http://giraph.apache.org/quick_start.html) to create this updated guide. In what follows, we shall create a VM instance on *Google Cloud Platform* that will run on an *Ubuntu* OS. Even if *Ubuntu* is not your native OS, using a VM instance will allow you to get along just fine. We will then deploy Giraph on a single-node, pseudo-distributed Hadoop cluster.
 
 The deployment uses the following software/configuration:
 
 * Ubuntu Server 18.04 LTS with the following configuration:
- * 4 vCPUs with 15 GB memory
- * 10 GB standard persistent disk 
- * Admin account: `root`
- * Hostname: `hdnode01`
- * Internal IP address: `123.123.12.12`
- * External IP address: `34.345.345.345`
+  * 4 vCPUs with 15 GB memory
+  * 10 GB standard persistent disk 
+  * Admin account: `root`
+  * Hostname: `hdnode01`
+  * Internal IP address: `123.123.12.12`
+  * External IP address: `34.345.345.345`
 * Apache Hadoop 2.5.1
 * Apache Giraph 1.2.0
 
@@ -20,7 +20,7 @@ The deployment uses the following software/configuration:
 For detailed instructions, please refer to this [link](https://cloud.google.com/compute/docs/instances/create-start-instance). Create the instance according to these settings.
 ![alt text](https://github.com/Jordan396/Giraph-1.2.0-Installation/raw/master/src/images/VM_settings2.PNG "VM Settings")
 
-As this instance is rather expensive, do ensure that you have sufficient credits in your account before clicking 'Create'. Once the instance has been created, follow these [instructions](https://cloud.google.com/compute/docs/instances/connecting-to-instance) to connect to your instance.
+As this instance is rather expensive, do ensure that you have sufficient credits in your account before clicking 'Create'. Once done, follow these [instructions](https://cloud.google.com/compute/docs/instances/connecting-to-instance) to connect to your instance.
 
 ## Deploying Hadoop
 We will now deploy a single-node, pseudo-distributed Hadoop cluster. First, log into `root`, change the password and install vim and Java 1.8:
@@ -261,5 +261,4 @@ Once the job is completed, you can check the output by running:
 ```
 $HADOOP_HOME/bin/hdfs dfs -text /user/hduser/output/shortestpaths/p* | less
 ```
-
 That's all I have for now. Do let me know if you encounter any issues with the above instructions by dropping me an email at **jordan.chyehong@gmail.com**. 
