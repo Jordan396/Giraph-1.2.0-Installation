@@ -261,4 +261,4 @@ Once the job is completed, you can check the output by running:
 ```
 $HADOOP_HOME/bin/hdfs dfs -text /user/hduser/output/shortestpaths/p* | less
 ```
-That's all I have for now. Do let me know if you encounter any issues with the above instructions by dropping me an email at **jordan.chyehong@gmail.com**. 
+That's all I have for now. Do let me know if you encounter any issues with the above instructions by dropping me an email at [jordan.chyehong@gmail.com](mailto:jordan.chyehong@gmail.com). 
