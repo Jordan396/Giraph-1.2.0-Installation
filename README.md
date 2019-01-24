@@ -197,7 +197,7 @@ $HADOOP_HOME/bin/hadoop jar $GIRAPH_HOME/giraph-examples/target/giraph-examples-
 ```
 Notice that the job is computed using a single worker using the argument `-w`. To get more information about running a Giraph job, run the following command:
 ```
-$HADOOP_HOME/bin/hadoop jar $GIRAPH_HOME/giraph-examples/target/giraph-examples-1.3.0-SNAPSHOT-for-hadoop-1.2.1-jar-with-dependencies.jar org.apache.giraph.GiraphRunner -h
+$HADOOP_HOME/bin/hadoop jar $GIRAPH_HOME/giraph-examples/target/giraph-examples-1.2.0-hadoop2-for-hadoop-2.5.1-jar-with-dependencies.jar org.apache.giraph.GiraphRunner -h
 ```
 This will output the following:
 ```
