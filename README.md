@@ -78,7 +78,9 @@ vim hosts
 Even though we can use localhost for all communication within this single-node cluster, using the hostname is generally a better practice (e.g., you might add a new node and convert your single-node, pseudo-distributed cluster to multi-node, distributed cluster).
 
 Now, edit Hadoop configuration files `core-site.xml`, `mapred-site.xml.template`, and `hdfs-site.xml` under `$HADOOP_HOME/etc/hadoop` to reflect the current setup. Add the new lines between `<configuration>...</configuration>`, as specified below:
+
 * Edit `core-site.xml` with: 
+
 ```
 <property>
 <name>hadoop.tmp.dir</name>
@@ -90,7 +92,9 @@ Now, edit Hadoop configuration files `core-site.xml`, `mapred-site.xml.template`
 <value>hdfs://hdnode01:54310</value> 
 </property>
 ```
+
 * Edit `mapred-site.xml.template` with: 
+
 ```
 <property>
 <name>mapred.job.tracker</name> 
@@ -107,18 +111,22 @@ Now, edit Hadoop configuration files `core-site.xml`, `mapred-site.xml.template`
 <value>4</value>
 </property>
 ```
- By default, Hadoop allows 2 mappers to run at once. Giraph's code, however, assumes that we can run 4 mappers at the same time. Accordingly, for this single-node, pseudo-distributed deployment, we need to add the last two properties in `mapred-site.xml.template` to reflect this requirement. Otherwise, some of Giraph's unittests will fail.
+
+By default, Hadoop allows 2 mappers to run at once. Giraph's code, however, assumes that we can run 4 mappers at the same time. Accordingly, for this single-node, pseudo-distributed deployment, we need to add the last two properties in `mapred-site.xml.template` to reflect this requirement. Otherwise, some of Giraph's unittests will fail.
  
 * Edit `hdfs-site.xml` with: 
+
 ```
 <property>
 <name>dfs.replication</name> 
 <value>1</value> 
 </property>
 ```
- Notice that you just set the replication service to make only 1 copy of the files stored in HDFS. This is because you have only one data node. The default value is 3 and you will receive run-time exceptions if you do not change it.
+
+Notice that you just set the replication service to make only 1 copy of the files stored in HDFS. This is because you have only one data node. The default value is 3 and you will receive run-time exceptions if you do not change it.
  
 Next, set up SSH for user account `hduser` so that you do not have to enter a passcode every time an SSH connection is started:
+
 ```
 su - hduser
 ssh-keygen -t rsa -P ""
@@ -126,12 +134,14 @@ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
 ```
 
 And then SSH to hdnode01 under user account `hduser` (this must be to hdnode01, as we used the node's hostname in Hadoop configuration). You will be asked for a password if this is the first time you SSH to the node under this user account. When prompted, do store the public RSA key into `$HOME/.ssh/known_hosts`. Once you make sure you can SSH without a passcode/password, edit `$HADOOP_HOME/etc/hadoop/slaves`:
+
 ```
 cd $HADOOP_HOME/etc/hadoop/slaves
 vim slaves
 # Replace localhost with the following
 hdnode01
 ```
+
 These edits set a single-node, pseudo-distributed Hadoop cluster consisting of a single master and a single slave on the same physical machine. Note that if you want to deploy a multi-node, distributed Hadoop cluster, you should add other data nodes (e.g., `hdnode02`, `hdnode03`, ...) in the `$HADOOP_HOME/etc/hadoop/slaves` file after following all of the steps above on each new node with minor changes. 
 
 Let us move on. To initialize HDFS, format it by running the following command:
