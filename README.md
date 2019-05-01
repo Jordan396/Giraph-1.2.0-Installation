@@ -45,7 +45,7 @@ tar xzf hadoop-2.5.1.tar.gz
 mv hadoop-2.5.1 hadoop
 chown -R hduser:hadoop hadoop
 ```
-After installation, swich to user account `hduser` and edit the account's `$HOME/.bashrc`:
+After installation, switch to user account `hduser` and edit the account's `$HOME/.bashrc`:
 ```
 su - hduser
 vim .bashrc
@@ -79,43 +79,43 @@ Even though we can use localhost for all communication within this single-node c
 
 Now, edit Hadoop configuration files `core-site.xml`, `mapred-site.xml.template`, and `hdfs-site.xml` under `$HADOOP_HOME/etc/hadoop` to reflect the current setup. Add the new lines between `<configuration>...</configuration>`, as specified below:
 * Edit `core-site.xml` with: 
- ```
- <property>
- <name>hadoop.tmp.dir</name>
- <value>/app/hadoop/tmp</value>
- </property>
- 
- <property> 
- <name>fs.default.name</name> 
- <value>hdfs://hdnode01:54310</value> 
- </property>
- ```
+```
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/app/hadoop/tmp</value>
+</property>
+
+<property> 
+<name>fs.default.name</name> 
+<value>hdfs://hdnode01:54310</value> 
+</property>
+```
 * Edit `mapred-site.xml.template` with: 
- ```
- <property>
- <name>mapred.job.tracker</name> 
- <value>hdnode01:54311</value>
- </property>
- 
- <property>
- <name>mapred.tasktracker.map.tasks.maximum</name>
- <value>4</value>
- </property>
- 
- <property>
- <name>mapred.map.tasks</name>
- <value>4</value>
- </property>
- ```
+```
+<property>
+<name>mapred.job.tracker</name> 
+<value>hdnode01:54311</value>
+</property>
+
+<property>
+<name>mapred.tasktracker.map.tasks.maximum</name>
+<value>4</value>
+</property>
+
+<property>
+<name>mapred.map.tasks</name>
+<value>4</value>
+</property>
+```
  By default, Hadoop allows 2 mappers to run at once. Giraph's code, however, assumes that we can run 4 mappers at the same time. Accordingly, for this single-node, pseudo-distributed deployment, we need to add the last two properties in `mapred-site.xml.template` to reflect this requirement. Otherwise, some of Giraph's unittests will fail.
  
 * Edit `hdfs-site.xml` with: 
- ```
- <property>
- <name>dfs.replication</name> 
- <value>1</value> 
- </property>
- ```
+```
+<property>
+<name>dfs.replication</name> 
+<value>1</value> 
+</property>
+```
  Notice that you just set the replication service to make only 1 copy of the files stored in HDFS. This is because you have only one data node. The default value is 3 and you will receive run-time exceptions if you do not change it.
  
 Next, set up SSH for user account `hduser` so that you do not have to enter a passcode every time an SSH connection is started:
